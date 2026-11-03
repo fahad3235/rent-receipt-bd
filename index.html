@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rent Receipt BD — Monthly Rent Receipts</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1>Rent Receipt BD</h1>
+    <p data-i18n="tagline"></p>
+  </div>
+  <div class="lang-switch">
+    <button id="lang-en" type="button">EN</button>
+    <button id="lang-bn" type="button">বাংলা</button>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab-btn active" data-tab="dashboard" data-i18n="tabDashboard" type="button"></button>
+  <button class="tab-btn" data-tab="tenants" data-i18n="tabTenants" type="button"></button>
+  <button class="tab-btn" data-tab="receipts" data-i18n="tabReceipts" type="button"></button>
+  <button class="tab-btn" data-tab="data" data-i18n="tabData" type="button"></button>
+</nav>
+
+<main>
+  <section id="tab-dashboard" class="tab-panel">
+    <div class="row wrap">
+      <label><span data-i18n="monthLabel"></span>
+        <input id="view-month" type="month">
+      </label>
+      <label><span data-i18n="search"></span>
+        <input id="search" type="search" data-i18n-ph="search">
+      </label>
+    </div>
+    <div class="stats">
+      <div class="stat"><span data-i18n="activeTenants"></span><strong id="stat-tenants">0</strong></div>
+      <div class="stat"><span data-i18n="collectedMonth"></span><strong id="stat-collected">৳0.00</strong></div>
+      <div class="stat"><span data-i18n="outstandingMonth"></span><strong id="stat-outstanding">৳0.00</strong></div>
+      <div class="stat"><span data-i18n="advanceHeld"></span><strong id="stat-advance">৳0.00</strong></div>
+    </div>
+    <h2 id="month-title"></h2>
+    <table>
+      <thead><tr><th data-i18n="tenant"></th><th data-i18n="property"></th><th data-i18n="monthlyRent"></th><th data-i18n="paid"></th><th data-i18n="status"></th></tr></thead>
+      <tbody id="month-table-body"></tbody>
+    </table>
+  </section>
+
+  <section id="tab-tenants" class="tab-panel hidden">
+    <h2 data-i18n="addTenant"></h2>
+    <form id="tenant-form" novalidate>
+      <label><span data-i18n="tenantName"></span><input id="f-name" type="text" required></label>
+      <label><span data-i18n="property"></span><input id="f-property" type="text" required></label>
+      <label><span data-i18n="monthlyRent"></span><input id="f-rent" type="number" min="0" step="0.01" required></label>
+      <label><span data-i18n="advance"></span><input id="f-advance" type="number" min="0" step="0.01" value="0"></label>
+      <label><span data-i18n="phone"></span><input id="f-phone" type="tel"></label>
+      <label><span data-i18n="startMonth"></span><input id="f-start" type="month" required></label>
+      <p id="tenant-error" class="error hidden" role="alert"></p>
+      <button type="submit" data-i18n="saveTenant"></button>
+    </form>
+
+    <h2 data-i18n="recordPayment"></h2>
+    <form id="payment-form" novalidate>
+      <label><span data-i18n="tenant"></span><select id="tenant-select"></select></label>
+      <label><span data-i18n="paymentMonth"></span><input id="p-month" type="month" required></label>
+      <label><span data-i18n="amount"></span><input id="p-amount" type="number" min="0" step="0.01" required></label>
+      <label><span data-i18n="method"></span>
+        <select id="p-method">
+          <option>Cash</option><option>bKash</option><option>Nagad</option><option>Bank</option><option>Other</option>
+        </select>
+      </label>
+      <label><span data-i18n="payDate"></span><input id="p-date" type="date" required></label>
+      <p id="payment-error" class="error hidden" role="alert"></p>
+      <button type="submit" data-i18n="savePayment"></button>
+    </form>
+
+    <div id="tenant-list" class="grid"></div>
+  </section>
+
+  <section id="tab-receipts" class="tab-panel hidden">
+    <div id="receipt-list" class="grid"></div>
+  </section>
+
+  <section id="tab-data" class="tab-panel hidden">
+    <div class="row wrap">
+      <button id="export-btn" type="button" data-i18n="export"></button>
+      <label class="file-label"><span data-i18n="import"></span><input id="import-file" type="file" accept=".json,application/json"></label>
+      <button id="erase-btn" type="button" data-i18n="erase"></button>
+    </div>
+    <p id="data-msg" class="hidden" role="status"></p>
+  </section>
+</main>
+
+<footer><p data-i18n="disclaimer"></p></footer>
+
+<div id="print-area" aria-hidden="true"></div>
+<script src="js/logic.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
